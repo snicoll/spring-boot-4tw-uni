@@ -19,6 +19,7 @@
 
 	<modules>
 		<module>spring-boot-4tw-config-diff</module>
+		<module>spring-boot-4tw-web</module>
 	</modules>
 
 
@@ -35,6 +36,22 @@
 				<groupId>org.test.springone</groupId>
 				<artifactId>spring-boot-4tw-config-diff</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.webjars</groupId>
+				<artifactId>jquery</artifactId>
+				<version>2.1.4</version>
+			</dependency>
+			<dependency>
+				<groupId>org.webjars</groupId>
+				<artifactId>bootstrap</artifactId>
+				<version>3.3.5</version>
+			</dependency>
+			<dependency>
+				<groupId>org.webjars</groupId>
+				<artifactId>webjars-locator</artifactId>
+				<version>0.22</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
