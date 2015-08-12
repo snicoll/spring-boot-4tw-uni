@@ -38,3 +38,7 @@ body {
 .table>tbody>tr.delete>td {
     background-color: #f2dede;
 }
+
+.deprecated {
+    text-decoration: line-through
+}

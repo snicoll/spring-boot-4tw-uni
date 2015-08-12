@@ -34,6 +34,11 @@
                     <input type="text" size="30" class="form-control" id="toVersion"
                            name="toVersion" placeholder="to Version" value="{{nextVersion}}">
                 </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="full" {{#full}}checked{{/full}}> Show All
+                    </label>
+                </div>
                 <button type="submit" class="btn btn-primary">Compare</button>
             </form>
         </div>
