@@ -14,8 +14,11 @@ public class ConfigurationDiffResultLoader {
 
 	private final ConfigDiffGenerator diffGenerator;
 
+	private final VersionStringComparator versionComparator;
+
 	public ConfigurationDiffResultLoader() {
 		this.diffGenerator = new ConfigDiffGenerator(AetherDependencyResolver.withAllRepositories(false));
+		this.versionComparator = new VersionStringComparator();
 	}
 
 	/**
@@ -25,6 +28,9 @@ public class ConfigurationDiffResultLoader {
 		try {
 			Assert.hasText(previousVersion);
 			Assert.hasText(nextVersion);
+			if (versionComparator.compare(previousVersion, nextVersion) >= 0) {
+				throw new VersionMisMatchException(previousVersion, nextVersion);
+			}
 			return diffGenerator.generateDiff(previousVersion, nextVersion);
 		}
 		catch (IOException ex) {
