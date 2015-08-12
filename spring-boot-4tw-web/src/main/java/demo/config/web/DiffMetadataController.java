@@ -1,10 +1,14 @@
 package demo.config.web;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import demo.config.diff.ConfigDiffResult;
+import demo.config.diff.ConfigDiffType;
 import demo.config.diffview.ConfigDiff;
 import demo.config.diffview.DiffViewConverter;
+import demo.config.diffview.GroupDiff;
 import demo.config.service.ConfigurationDiffResultLoader;
 import demo.config.validation.Version;
 
@@ -13,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class DiffMetadataController {
@@ -38,11 +43,15 @@ public class DiffMetadataController {
 
 			model.addAttribute("previousVersion", diffRequest.fromVersion);
 			model.addAttribute("nextVersion", diffRequest.toVersion);
-			model.addAttribute("diffs", configDiff.getGroups());
+			model.addAttribute("full", diffRequest.full);
+			List<GroupDiff> groups = configDiff.getGroups().stream()
+					.filter(g -> diffRequest.full || g.getDiffType() != ConfigDiffType.EQUALS)
+					.collect(Collectors.toList());
+			model.addAttribute("diffs", groups);
 		}
 		else {
-			model.addAttribute("previousVersion", "");
-			model.addAttribute("nextVersion", "");
+			model.addAttribute("previousVersion", "1.3.0.M1");
+			model.addAttribute("nextVersion", "1.3.0.M3");
 			model.addAttribute("diffs", null);
 		}
 		return "diff";
@@ -56,6 +65,8 @@ public class DiffMetadataController {
 
 		@Version
 		private String toVersion;
+
+		private boolean full;
 
 		public boolean isVersionSet() {
 			return this.fromVersion != null || this.toVersion != null;
@@ -75,6 +86,14 @@ public class DiffMetadataController {
 
 		public void setToVersion(String toVersion) {
 			this.toVersion = toVersion;
+		}
+
+		public boolean isFull() {
+			return full;
+		}
+
+		public void setFull(boolean full) {
+			this.full = full;
 		}
 	}
 
