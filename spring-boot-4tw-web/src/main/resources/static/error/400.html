@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ooops, something went wrong</title>
+    <style type="text/css">
+        /* latin */
+        @font-face {
+            font-family: 'Roboto Slab';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Roboto Slab Regular'), local('RobotoSlab-Regular'), url(/error/roboto-slab.woff2) format('woff2');
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        header, main, #breaking {
+            width: 90%;
+            margin: auto;
+        }
+
+        h1 {
+            font: 50px 'Roboto Slab';
+            font-weight: bold;
+            color: #EC0000;
+        }
+
+        h1 span {
+            font-size: 20px;
+            color: #000;
+        }
+
+        #menu {
+            background-color: #eaeaea;
+            min-height: 40px;
+        }
+
+        #menu ul li {
+            list-style: none;
+            float: left;
+            margin-left: 1em;
+            height: 40px;
+            padding: 10px;
+            font-size: 20px;
+        }
+
+        #menu ul li:hover {
+            background-color: #fff;
+        }
+
+        #menu a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .leftcolumn {
+            float: left;
+            width: 780px;
+        }
+
+        .rightcolumn {
+            float: left;
+            width: 20%;
+        }
+
+        section {
+            clear: left;
+            margin-top: 1em;
+            position: relative;
+        }
+
+        .title {
+            color: #fff;
+            position: absolute;
+            bottom: 0;
+            margin: 1rem;
+        }
+
+        .title h3 {
+            margin: 0;
+            background-color: #e32;
+            max-width: 14em;
+            padding: 5px;
+        }
+
+        .title h2 {
+            margin: 0;
+            padding: 15px;
+            color: #fff;
+            font-size: 50px;
+            width: 13em;
+            border-top: 2px solid #e32;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        section h2 {
+            color: #07e;
+            text-decoration: none;
+        }
+
+        section .box {
+            float: left;
+            width: 140px;
+            background-color: #ddd;
+            color: #555;
+            height: 80px;
+            text-align: center;
+            font-size: 28px;
+            padding-top: 26px;
+            margin-right: 1em;
+        }
+
+
+    </style>
+</head>
+<body>
+<header>
+    <h1>SpringBuzz <span>news for developers</span></h1>
+</header>
+<div id="menu">
+    <ul>
+        <li><a href="/">LOL</a></li>
+        <li><a href="/">SOAP</a></li>
+        <li><a href="/">OH NOES</a></li>
+        <li><a href="/">OOPS</a></li>
+    </ul>
+</div>
+<main>
+    <div class="leftcolumn">
+        <section class="main">
+            <img src="/error/facepalm_statue.jpg"/>
+
+            <div class="title">
+                <h3>This is your fault, really.</h3>
+
+                <h2>HTTP 400 - Bad Request</h2>
+            </div>
+        </section>
+        <section>
+            <article>
+                <div class="box">LOL!!</div>
+                <h2>You won't believe what happened to this MicroService!</h2>
+
+                <p>It's so insane Monolithic apps can't process it.</p>
+            </article>
+        </section>
+        <section>
+            <article>
+                <div class="box">YES!</div>
+                <h2>Parents named their child "AbstractSingletonProxyFactoryBean"</h2>
+
+                <p>Big brother "Robert'); DROP TABLE" is happy!</p>
+            </article>
+        </section>
+
+    </div>
+    <div class="rightcolumn">
+        <section>
+            <article>
+                <h2>10 Hilarious Exceptions</h2>
+
+                <p>Reading stacktraces has never been so funny.</p>
+            </article>
+            <article>
+                <h2>31 reasons to embed your container</h2>
+
+                <p>How to make your application happy.</p>
+            </article>
+            <article>
+                <h2>Make JAR not WAR!</h2>
+
+                <p>Movie stars prefer executable JARs.</p>
+            </article>
+        </section>
+    </div>
+
+</main>
+
+
+</body>
+</html>
