@@ -1,0 +1,27 @@
+{
+  "name": "spring-boot-4tw-client",
+  "description": "Spring Boot 4TW client application",
+  "main": "",
+  "authors": [
+    "Brian Clozel <bclozel@pivotal.io>",
+    "Stéphane Nicoll <snicoll@pivotal.io>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/snicoll-scratches/spring-boot-4tw-steps",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "bootstrap": "components/bootstrap#~3.3.5",
+    "angular-route": "~1.4.7",
+    "jquery": "components/jquery#~2.1.4",
+    "angular-bootstrap": "angular-ui-bootstrap-bower#~0.14.2"
+  }
+}
