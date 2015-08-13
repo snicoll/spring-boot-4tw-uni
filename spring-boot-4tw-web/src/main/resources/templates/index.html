@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" ng-app="diffApp">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Spring Boot 4TW :: Angular.js</title>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width"/>
+    <base href="/" th:href="@{/}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <script type="text/javascript" th:src="@{/angular/angular.min.js}"></script>
+    <script type="text/javascript" th:src="@{/angular-route/angular-route.min.js}"></script>
+    <script type="text/javascript" th:src="@{/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/angular-bootstrap/ui-bootstrap-tpls.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/app.js}"></script>
+</head>
+<body>
+<div class="container" ng-view="">
+
+</div>
+
+<script type='text/ng-template' id='diffListTemplate'>
+    <header>
+        <div class="page-header">
+            <h1><a ng-href="/">Spring Boot Metadata</a>
+                <small>diff generator</small>
+            </h1>
+        </div>
+    </header>
+
+    <div class="row">
+        <div class="col-md-9">
+            <form class="form-inline version-form"
+                  ng-submit="compare(fromVersion, toVersion)" id="compare" name="compareForm">
+                <div class="form-group">
+                    <label class="sr-only" for="fromVersion">From version</label>
+                    <input type="text" size="30" class="form-control"
+                           id="fromVersion" ng-model="fromVersion"
+                           name="fromVersion" placeholder="from Version" autocomplete="off"
+                           required="true"/>
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="toVersion">To version</label>
+                    <input type="text" size="30" class="form-control"
+                           id="toVersion" ng-model="toVersion"
+                           name="toVersion" placeholder="to Version" autocomplete="off"
+                           required="true"/>
+                </div>
+                <button type="submit" class="btn btn-primary" ng-disabled="compareForm.$invalid">Compare</button>
+                <p class="bg-danger" ng-if="exception">{{exception.message}}</p>
+            </form>
+
+        </div>
+        <div class="col-md-9" role="main">
+            <table ng-repeat="group in diffs.groups" class="table table-hover table-metadata"
+                   id="{{group.id | anchor}}">
+                <caption>Group "{{group.id}}"</caption>
+                <thead>
+                <tr>
+                    <th class="col-md-6">{{diffs.fromVersion}}</th>
+                    <th class="col-md-6">{{diffs.toVersion}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="prop in group.properties" class="{{prop.diffType | lowercase}}">
+                    <td>
+                            <span ng-if="prop.from.deprecated" class="deprecated"
+                                  title="{{prop.to.deprecationReason}} See: {{prop.to.deprecationReplacement}}">{{prop.from.name}}</span>
+                            <span ng-if="!prop.from.deprecated"
+                                  title="{{prop.from.description}}">{{prop.from.name}}</span>
+                    </td>
+                    <td>
+                            <span ng-if="prop.to.deprecated" class="deprecated"
+                                  title="{{prop.to.deprecationReason}} See: {{prop.to.deprecationReplacement}}">{{prop.to.name}}</span>
+                            <span ng-if="!prop.to.deprecated"
+                                  title="{{prop.to.description}}">{{prop.to.name}}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-3" role="complementary">
+            <nav class="navbar-side" data-spy="affix" data-offset-top="10">
+                <ul class="nav">
+                    <li ng-repeat="group in diffs.groups"><a ng-click="gotoAnchor($event, group)"
+                                                             href="#{{group.id | anchor}}">{{group.id}}</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</script>
+
+</body>
+</html>

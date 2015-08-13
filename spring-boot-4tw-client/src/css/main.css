@@ -42,3 +42,8 @@ body {
 .deprecated {
     text-decoration: line-through
 }
+
+form p.bg-danger {
+    padding:15px;
+    margin-top: 15px;
+}

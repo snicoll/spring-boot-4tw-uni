@@ -15,6 +15,6 @@ public class VersionValidator implements ConstraintValidator<Version, String> {
 
 	@Override
 	public boolean isValid(String version, ConstraintValidatorContext context) {
-		return version == null || versionPattern.matcher(version).matches();
+		return version != null && versionPattern.matcher(version).matches();
 	}
 }
