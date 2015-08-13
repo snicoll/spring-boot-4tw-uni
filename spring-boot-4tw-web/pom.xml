@@ -114,6 +114,13 @@
 					</generateGitPropertiesFilename>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.cloudfoundry</groupId>
+				<artifactId>cf-maven-plugin</artifactId>
+				<configuration>
+					<appname>config-key-diff</appname>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

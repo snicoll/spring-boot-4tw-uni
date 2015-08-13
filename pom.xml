@@ -85,6 +85,17 @@
 						</execution>
 					</executions>
 				</plugin>
+				<plugin>
+					<groupId>org.cloudfoundry</groupId>
+					<artifactId>cf-maven-plugin</artifactId>
+					<version>1.1.1</version>
+					<configuration>
+						<server>pcf-instance</server>
+						<target>http://api.run.pivotal.io</target>
+						<org>spring.io</org>
+						<space>development</space>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
