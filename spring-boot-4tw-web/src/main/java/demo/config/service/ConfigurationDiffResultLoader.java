@@ -6,6 +6,7 @@ import demo.config.diff.ConfigDiffGenerator;
 import demo.config.diff.ConfigDiffResult;
 import demo.config.diff.support.AetherDependencyResolver;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -24,6 +25,7 @@ public class ConfigurationDiffResultLoader {
 	/**
 	 * Load the {@link ConfigDiffResult} between the {@code previousVersion} and the {@code nextVersion}.
 	 */
+	@Cacheable("diffs")
 	public ConfigDiffResult load(String previousVersion, String nextVersion) {
 		try {
 			Assert.hasText(previousVersion);
