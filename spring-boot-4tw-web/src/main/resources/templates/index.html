@@ -39,14 +39,14 @@
                     <input type="text" size="30" class="form-control"
                            id="fromVersion" ng-model="fromVersion"
                            name="fromVersion" placeholder="from Version" autocomplete="off"
-                           required="true"/>
+                           uib-typeahead="version for version in bootVersions | filter:$viewValue | limitTo:8" required="true"/>
                 </div>
                 <div class="form-group">
                     <label class="sr-only" for="toVersion">To version</label>
                     <input type="text" size="30" class="form-control"
                            id="toVersion" ng-model="toVersion"
                            name="toVersion" placeholder="to Version" autocomplete="off"
-                           required="true"/>
+                           uib-typeahead="version for version in bootVersions | filter:$viewValue | limitTo:8" required="true"/>
                 </div>
                 <button type="submit" class="btn btn-primary" ng-disabled="compareForm.$invalid">
                     <span ng-if="loading" class="glyphicon glyphicon-refresh spinning"></span> Compare
