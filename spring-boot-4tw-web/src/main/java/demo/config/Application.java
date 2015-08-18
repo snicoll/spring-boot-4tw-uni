@@ -1,12 +1,14 @@
 package demo.config;
 
-import java.util.Random;
 import javax.cache.configuration.MutableConfiguration;
 import javax.cache.expiry.CreatedExpiryPolicy;
 import javax.cache.expiry.Duration;
 
+import demo.config.springboot.SpringBootVersionService;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.ExportMetricWriter;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.metrics.jmx.JmxMetricWriter;
@@ -15,7 +17,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jmx.export.MBeanExporter;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableCaching
@@ -32,15 +36,16 @@ public class Application {
 	}
 
 	@Bean
-	public HealthIndicator forTheWebHealthIndicator() {
-		return () -> {
-			if (new Random().nextBoolean()) {
-				return Health.up().build();
-			}
-			else {
-				return Health.down()
-						.withDetail("Ooops", 42)
-						.build();
+	public HealthIndicator releaseRepositoryHealthIndicator(SpringBootVersionService springBootVersionService) {
+		return new AbstractHealthIndicator() {
+			@Override
+			protected void doHealthCheck(Health.Builder builder) throws Exception {
+				RestTemplate restTemplate = new RestTemplate();
+				for (String url : springBootVersionService.getRepositoryUrls()) {
+					ResponseEntity<String> entity = restTemplate
+							.getForEntity(url, String.class);
+					builder.up().withDetail(url, entity.getStatusCode());
+				}
 			}
 		};
 	}
@@ -48,11 +53,13 @@ public class Application {
 	@Bean
 	public JCacheManagerCustomizer cacheManagerCustomizer() {
 		return cm -> {
-			cm.createCache("diffs", new MutableConfiguration<>()
+			MutableConfiguration<Object, Object> configuration = new MutableConfiguration<>()
 					.setExpiryPolicyFactory(CreatedExpiryPolicy
 							.factoryOf(Duration.ONE_HOUR))
 					.setStoreByValue(false)
-					.setStatisticsEnabled(true));
+					.setStatisticsEnabled(true);
+			cm.createCache("diffs", configuration);
+			cm.createCache("boot-versions", configuration);
 		};
 	}
 
