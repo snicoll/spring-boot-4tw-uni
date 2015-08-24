@@ -48,7 +48,9 @@
                            name="toVersion" placeholder="to Version" autocomplete="off"
                            required="true"/>
                 </div>
-                <button type="submit" class="btn btn-primary" ng-disabled="compareForm.$invalid">Compare</button>
+                <button type="submit" class="btn btn-primary" ng-disabled="compareForm.$invalid">
+                    <span ng-if="loading" class="glyphicon glyphicon-refresh spinning"></span> Compare
+                </button>
                 <p class="bg-danger" ng-if="exception">{{exception.message}}</p>
             </form>
 
