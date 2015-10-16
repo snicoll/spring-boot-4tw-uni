@@ -13,11 +13,11 @@ import demo.config.service.ConfigurationDiffResultLoader;
 import demo.config.validation.Version;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class DiffMetadataController {
@@ -26,11 +26,14 @@ public class DiffMetadataController {
 
 	private final DiffViewConverter converter;
 
+	private final CounterService counterService;
+
 	@Autowired
 	public DiffMetadataController(ConfigurationDiffResultLoader resultLoader,
-			DiffViewConverter converter) {
+			DiffViewConverter converter, CounterService counterService) {
 		this.resultLoader = resultLoader;
 		this.converter = converter;
+		this.counterService = counterService;
 	}
 
 	@RequestMapping("/")
@@ -48,6 +51,8 @@ public class DiffMetadataController {
 					.filter(g -> diffRequest.full || g.getDiffType() != ConfigDiffType.EQUALS)
 					.collect(Collectors.toList());
 			model.addAttribute("diffs", groups);
+
+			logMetrics(diffRequest);
 		}
 		else {
 			model.addAttribute("previousVersion", "1.3.0.M1");
@@ -55,6 +60,11 @@ public class DiffMetadataController {
 			model.addAttribute("diffs", null);
 		}
 		return "diff";
+	}
+
+	private void logMetrics(DiffRequest diffRequest) {
+		this.counterService.increment("diff.from." + diffRequest.getFromVersion());
+		this.counterService.increment("diff.to." + diffRequest.getToVersion());
 	}
 
 
