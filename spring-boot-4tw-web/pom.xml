@@ -110,6 +110,9 @@
 				<artifactId>cf-maven-plugin</artifactId>
 				<configuration>
 					<appname>config-key-diff</appname>
+					<env>
+						<SPRING_PROFILES_ACTIVE>prod</SPRING_PROFILES_ACTIVE>
+					</env>
 				</configuration>
 			</plugin>
 		</plugins>

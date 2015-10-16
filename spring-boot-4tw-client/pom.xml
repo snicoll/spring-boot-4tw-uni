@@ -14,7 +14,7 @@
     <build>
 		<resources>
 			<resource>
-				<directory>${basedir}/src</directory>
+				<directory>${project.build.directory}/dist</directory>
 			</resource>
             <resource>
                 <directory>${basedir}/bower_components</directory>
@@ -50,6 +50,12 @@
                             <goal>bower</goal>
                         </goals>
                     </execution>
+					<execution>
+						<id>gulp build</id>
+						<goals>
+							<goal>gulp</goal>
+						</goals>
+					</execution>
                 </executions>
             </plugin>
             <plugin>
