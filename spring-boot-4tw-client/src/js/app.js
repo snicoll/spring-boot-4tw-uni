@@ -6,7 +6,7 @@ angular.module('diffApp', ['ngRoute', 'ui.bootstrap'])
     .factory('jQuery', ['$window', function ($window) {
         return $window.jQuery;
     }])
-    .constant('springBootVersionURL', 'http://localhost:9090/springboot/versions.json')
+    .constant('springBootVersionURL', 'http://boot-versions-provider.cfapps.io/springboot/versions.json')
     .config(['$provide', function ($provide) {
         $provide.value("apiRoot", $("head > base").attr("href"));
     }])
