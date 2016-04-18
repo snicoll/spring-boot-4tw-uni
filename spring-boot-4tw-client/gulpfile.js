@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var minifyCss = require('gulp-minify-css');
+var cleanCSS = require('gulp-clean-css');
 var uglify = require('gulp-uglify');
 
 var paths = {
@@ -10,7 +10,7 @@ var paths = {
 
 gulp.task('minify-css', function() {
     return gulp.src(paths.css)
-        .pipe(minifyCss())
+        .pipe(cleanCSS())
         .pipe(gulp.dest(paths.dist + 'css/'));
 });
 
