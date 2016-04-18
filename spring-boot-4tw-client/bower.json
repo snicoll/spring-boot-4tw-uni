@@ -18,10 +18,10 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.4.7",
-    "bootstrap": "components/bootstrap#~3.3.5",
-    "angular-route": "~1.4.7",
+    "angular": "~1.5.5",
+    "bootstrap": "components/bootstrap#~3.3.6",
+    "angular-route": "~1.5.5",
     "jquery": "components/jquery#~2.1.4",
-    "angular-bootstrap": "angular-ui-bootstrap-bower#~0.14.2"
+    "angular-bootstrap": "angular-ui-bootstrap-bower#~0.14.3"
   }
 }
